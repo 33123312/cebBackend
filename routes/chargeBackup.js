@@ -12,12 +12,16 @@ routes.post("/chargeBackup",(req,res)=>{
     user = backInfo.user
     password = backInfo.password
 
-    if(backInfo.type == "backup")
+    if(backInfo.type == "backup"){
         chargeBackup(backInfo.periodo,backInfo.file)
-    else if (backInfo.type == "periodoBackup")
+        res.sendStatus(200)
+    }
+    else if (backInfo.type == "periodoBackup"){
         chargePeriodoBackup(backInfo.periodo,backInfo.file)
-
-    res.sendStatus(200)
+        res.sendStatus(200)
+    }
+    else
+        res.sendStatus(400)
 
 })
 
@@ -50,12 +54,10 @@ function executeShell(comand){
 
     const { exec } = require('child_process');
     exec(shell, (err, stdout, stderr) => {
-        if (err) {
+        if (err) 
             return;
-        }
-    
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
+        
+
         });
 }
 
