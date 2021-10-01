@@ -17,7 +17,7 @@ routes.post("/chargeBackup",(req,res)=>{
         res.sendStatus(200)
     }
     else if (backInfo.type == "periodoBackup"){
-        chargePeriodoBackup(backInfo.periodo,backInfo.file)
+        chargePeriodoBackup(backInfo.periodo)
         res.sendStatus(200)
     }
     else
@@ -33,10 +33,9 @@ async function chargeBackup (periodo,file){
 
 }
 
-async function chargePeriodoBackup(periodo,file){
-
+async function chargePeriodoBackup(periodo){
     let route = "/mysqlDumps/" + periodo + "/";
-    concactAndExecute(route,file)
+    concactAndExecute(route,periodo + ".sql")
 
 }
 

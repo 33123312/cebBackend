@@ -11,7 +11,7 @@ routes.get("/getPeriodosBack",(req,res)=>{
 
         let filesArray = []
         files.forEach(file => {
-          filesArray.push(file + ".sql")
+          filesArray.push(file)
         });
         console.log(filesArray)
         res.status(200).json({"list":filesArray});
