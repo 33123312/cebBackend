@@ -14,7 +14,7 @@ routes.get("/getPeriodosBack",(req,res)=>{
           filesArray.push(file + ".sql")
         });
         console.log(filesArray)
-        res.sendStatus(200).json({"list":filesArray});
+        res.status(200).json({"list":filesArray});
 
       } else
         res.sendStatus(404);

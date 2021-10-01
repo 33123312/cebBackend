@@ -15,7 +15,7 @@ routes.get("/getBack/:periodo",(req,res)=>{
             filesArray.push(file)
           });
 
-          res.sendStatus(200).json({"list":filesArray});
+          res.status(200).json({"list":filesArray});
 
         } else 
           res.sendStatus(404)
