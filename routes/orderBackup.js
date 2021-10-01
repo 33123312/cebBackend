@@ -6,12 +6,22 @@ const routes = express.Router();
 routes.post("/orderBackup",(req,res)=>{
     let backInfo = req.body;
 
-    if(backInfo.type == "backup")
-        orderBackup(backInfo.periodo,backInfo.user,backInfo.password)
-    else if (backInfo.type == "periodoBackup")
-        orderPeriodoBackup(backInfo.periodo,backInfo.user,backInfo.password)
+    console.log(backInfo)
 
-    res.sendStatus(200)
+
+    if(backInfo.type == "backup"){
+        orderBackup(backInfo.periodo,backInfo.user,backInfo.password)
+        res.sendStatus(200)
+    }
+        
+    else if (backInfo.type == "periodoBackup"){
+        orderPeriodoBackup(backInfo.periodo,backInfo.user,backInfo.password)
+        res.sendStatus(200)
+        }
+    else
+        res.sendStatus(400)
+
+    
     
 })
 

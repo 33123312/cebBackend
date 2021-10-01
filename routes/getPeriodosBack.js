@@ -2,19 +2,26 @@ const express = require("express")
 
 const routes = express.Router();
 
-routes.post("/getPeriodosBack",(req,res)=>{
+routes.get("/getPeriodosBack",(req,res)=>{
 
-    const fs = require('fs');
+    let fs = require('fs');
 
     fs.readdir("/mysqlDumps", (err, files) => {
+      if(files != undefined){
         let filesArray = [0]
-      files.forEach(file => {
-        filesArray.push(file + ".sql")
+        files.forEach(file => {
+          filesArray.push(file + ".sql")
 
-      });
+        });
+        res.json({"list":fs}).sendStatus(200);
+
+      } else
+        res.sendStatus(404);
+
+
     });
 
-    res.send(fs).sendStatus(200);
+    
 
 })
 
