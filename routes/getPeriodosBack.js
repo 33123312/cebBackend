@@ -9,12 +9,12 @@ routes.get("/getPeriodosBack",(req,res)=>{
     fs.readdir("/mysqlDumps", (err, files) => {
       if(files != undefined){
 
-        let filesArray = [0]
+        let filesArray = []
         files.forEach(file => {
           filesArray.push(file + ".sql")
         });
         console.log(filesArray)
-        res.json({"list":filesArray}).sendStatus(200);
+        res.sendStatus(200).json({"list":filesArray});
 
       } else
         res.sendStatus(404);
