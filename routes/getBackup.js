@@ -9,13 +9,13 @@ routes.get("/getBack/:periodo",(req,res)=>{
 
     fs.readdir("/mysqlDumps/" + periodo + "/backups/", (err, files) => {
         if(files != undefined){
-          let filesArray = [0]
+          let filesArray = []
 
           files.forEach(file => {
             filesArray.push(file)
           });
 
-          res.json({"list":filesArray}).sendStatus(200);
+          res.sendStatus(200).json({"list":filesArray});
 
         } else 
           res.sendStatus(404)
