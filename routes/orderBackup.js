@@ -1,7 +1,7 @@
 
 const express = require("express")
-
 const routes = express.Router();
+const shellExecuter = require("./shellExecuter");
 
 routes.post("/orderBackup",(req,res)=>{
     let backInfo = req.body;
@@ -39,41 +39,22 @@ async function orderBackup (periodo,user,password){
 }
 
 async function orderPeriodoBackup(periodo,user,password){
-    createPeriodoDir(periodo)
     let route = "/mysqlDumps/" + periodo + "/" + periodo + ".sql";
 
     executeDump(user,password,route);
 
 }
 
-function createPeriodoDir(periodo){
-    let comand = "mkdir /mysqlDumps/" + periodo
-    executeShell(comand)
-    comand = comand + "/backups"
-    executeShell(comand)
 
-}
 
 function executeDump(user, password, route){
     let comand = "mysqldump -u " + user + " -p" + password + " cebdatabase > " + route
 
-    executeShell(comand)
+    shellExecuter(comand)
 
 
 }
 
-function executeShell(comand){
-    console.log(comand)
-    const { exec } = require('child_process');
-    exec(comand, (err, stdout, stderr) => {
-        if (err) {
-            return;
-        }
-    
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-        });
 
-}
 
 module.exports = routes;

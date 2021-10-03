@@ -1,5 +1,6 @@
 
 const express = require("express")
+const shellExecuter = require("./shellExecuter")
 
 const routes = express.Router();
 
@@ -46,18 +47,8 @@ function concactAndExecute(route,file){
 }
 
 function executeShell(comand){
-    
-
     let shell = "mysql -u " + user+ " -p" + password + "  backDatabase < " + comand
-    console.log(shell);
-
-    const { exec } = require('child_process');
-    exec(shell, (err, stdout, stderr) => {
-        if (err) 
-            return;
-        
-
-        });
+    shellExecuter(shell)
 }
 
 module.exports = routes;
