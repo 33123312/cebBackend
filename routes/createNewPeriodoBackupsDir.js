@@ -2,8 +2,9 @@ const express = require("express")
 const routes = express.Router();
 const shellExecuter = require("./shellExecuter")
 
-routes.post("/createPeriodoBackupsDir/:periodo",(req,res) =>{
-    createPeriodoDir(req.params.periodo);
+routes.post("/createPeriodoBackupsDir",(req,res) =>{
+    let info = req.body;
+    createPeriodoDir(info.periodo);
     res.sendStatus(200)
 
 })
