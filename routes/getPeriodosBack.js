@@ -8,12 +8,12 @@ routes.get("/getPeriodosBack",(req,res)=>{
 
     fs.readdir("/mysqlDumps", (err, files) => {
       if(files != undefined){
-
         let filesArray = []
-        files.forEach(file => {
+
+        files.forEach(file => 
           filesArray.push(file)
-        });
-        console.log(filesArray)
+        );
+        
         res.status(200).json({"list":filesArray});
 
       } else
