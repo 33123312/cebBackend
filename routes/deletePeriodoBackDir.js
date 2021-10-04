@@ -3,14 +3,14 @@ const routes =  express.Router();
 const shellExecuter = require("./shellExecuter")
 
 routes.post("/deletePeriodoBackDir/:periodo",(req,res) =>{
-     deleteDir(req.params.periodo)
-     res.sendStatus(200)
+     deleteDir(req.params.periodo,res)
 })
 
-async function deleteDir(dir){
+async function deleteDir(dir,res){
     let cmd = "rm -r /mysqlDumps/" + dir;
-    console.log(cmd)
-    shellExecuter(cmd);
+    shellExecuter(cmd,()=>{
+        res.sendStatus(200);
+    });
 
 }
 

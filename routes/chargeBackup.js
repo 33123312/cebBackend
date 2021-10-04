@@ -6,20 +6,20 @@ const routes = express.Router();
 
 let user;
 let password;
+let response;
 
 routes.post("/chargeBackup",(req,res)=>{
     let backInfo = req.body;
 
     user = backInfo.user
     password = backInfo.password
+    response = res;
 
     if(backInfo.type == "backup"){
         chargeBackup(backInfo.periodo,backInfo.file)
-        res.sendStatus(200)
     }
     else if (backInfo.type == "periodoBackup"){
         chargePeriodoBackup(backInfo.periodo)
-        res.sendStatus(200)
     }
     else
         res.sendStatus(400)
@@ -48,7 +48,9 @@ function concactAndExecute(route,file){
 
 function executeShell(comand){
     let shell = "mysql -u " + user+ " -p" + password + "  backDatabase < " + comand
-    shellExecuter(shell)
+    shellExecuter(shell,()=>{
+        response.sendStatus(200);
+    })
 }
 
 module.exports = routes;

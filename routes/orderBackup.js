@@ -3,21 +3,18 @@ const express = require("express")
 const routes = express.Router();
 const shellExecuter = require("./shellExecuter");
 
+let response
+
 routes.post("/orderBackup",(req,res)=>{
     let backInfo = req.body;
 
-    console.log(backInfo)
+    response = res;
 
-
-    if(backInfo.type == "backup"){
+    if(backInfo.type == "backup")
         orderBackup(backInfo.periodo,backInfo.user,backInfo.password)
-        res.sendStatus(200)
-    }
-        
-    else if (backInfo.type == "periodoBackup"){
+    else if (backInfo.type == "periodoBackup")
         orderPeriodoBackup(backInfo.periodo,backInfo.user,backInfo.password)
-        res.sendStatus(200)
-        }
+        
     else
         res.sendStatus(400)
 
@@ -50,7 +47,9 @@ async function orderPeriodoBackup(periodo,user,password){
 function executeDump(user, password, route){
     let comand = "mysqldump -u " + user + " -p" + password + " cebdatabase > " + route
 
-    shellExecuter(comand)
+    shellExecuter(comand,() =>{
+        response.sendStatus(200);
+    })
 
 
 }

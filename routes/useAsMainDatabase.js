@@ -4,21 +4,20 @@ const shellExecuter = require("./shellExecuter");
 
 let user;
 let password
+let response
 
 routes.post("/useAsMainDatabase",(req,res) =>{
     let info = req.body;
 
     user = info.user;
     password = info.password
+    response = res;
 
-    if(info.type == "backup"){
+    if(info.type == "backup")
         chargeBackup(info.periodo,info.file)
-        res.sendStatus(200)
-    }
-    else if (info.type == "periodoBackup"){
-        chargePeriodo(info.periodo)
-        res.sendStatus(200)
-    }
+    
+    else if (info.type == "periodoBackup")
+        chargePeriodo(info.periodo)    
     else
         res.sendStatus(400)
 
@@ -38,7 +37,10 @@ function executeShell(periodo, dir){
     let finDir = "/mysqlDumps/" + periodo + "/" + dir;
 
     let shell = "mysql -u " + user+ " -p" + password + "  cebdatabase < " + finDir
-    shellExecuter(shell)
+
+    shellExecuter(shell,()=> {
+        response.sendStatus(200);
+    })
 }
 
 module.exports = routes;

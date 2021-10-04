@@ -4,16 +4,17 @@ const shellExecuter = require("./shellExecuter")
 
 routes.post("/createPeriodoBackupsDir",(req,res) =>{
     let info = req.body;
-    createPeriodoDir(info.periodo);
-    res.sendStatus(200)
+    createPeriodoDir(info.periodo,res);
 
 })
 
-function createPeriodoDir(periodo){
+function createPeriodoDir(periodo,res){
     let comand = "mkdir /mysqlDumps/" + periodo
     shellExecuter(comand)
     comand = comand + "/backups"
-    shellExecuter(comand)
+    shellExecuter(comand,() =>{
+        res.sendStatus(200)
+    })
 
 }
 
