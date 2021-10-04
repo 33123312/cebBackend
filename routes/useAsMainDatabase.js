@@ -2,10 +2,15 @@ const express = require("express")
 const routes = express.Router();
 const shellExecuter = require("./shellExecuter");
 
+let user;
+let password
+
 routes.post("/useAsMainDatabase",(req,res) =>{
     let info = req.body;
 
-    
+    user = info.user;
+    password = info.password
+
     if(info.type == "backup"){
         chargeBackup(info.periodo,info.file)
         res.sendStatus(200)
