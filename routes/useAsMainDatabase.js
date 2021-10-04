@@ -23,7 +23,7 @@ routes.post("/useAsMainDatabase",(req,res) =>{
 
 })
 
-function chargeBackup(file,periodo){
+function chargeBackup(periodo,file){
     let dir =  "backups/" + file;
     executeShell(periodo,dir)
 }

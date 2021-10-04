@@ -39,9 +39,7 @@ async function orderPeriodoBackup(periodo,user,password){
     let route = "/mysqlDumps/" + periodo + "/" + periodo + ".sql";
 
     executeDump(user,password,route);
-
 }
-
 
 
 function executeDump(user, password, route){
@@ -50,8 +48,6 @@ function executeDump(user, password, route){
     shellExecuter(comand,() =>{
         response.sendStatus(200);
     })
-
-
 }
 
 
