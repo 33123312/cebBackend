@@ -36,7 +36,7 @@ function chargePeriodo(periodo){
 function executeShell(periodo, dir){
     let finDir = "/mysqlDumps/" + periodo + "/" + dir;
 
-    let shell = "mysql -u " + user+ " -p" + password + "  cebdatabase < " + finDir
+    let shell = "mysql -u " + user+ " -p" + password + " --no-create-db  cebdatabase < " + finDir
 
     shellExecuter(shell,()=> {
         response.sendStatus(200);
