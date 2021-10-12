@@ -18,8 +18,6 @@ routes.post("/orderBackup",(req,res)=>{
     else
         res.sendStatus(400)
 
-    
-    
 })
 
 async function orderBackup (periodo,user,password){
@@ -41,9 +39,9 @@ async function orderPeriodoBackup(periodo,user,password){
     executeDump(user,password,route);
 }
 
-
+s
 function executeDump(user, password, route){
-    let comand = "mysqldump -u " + user + " -p" + password + " --no-create-db cebdatabase > " + route
+    let comand = "mysqldump -u " + user + " -p" + password + " --routines --no-create-db cebdatabase > " + route
 
     shellExecuter(comand,() =>{
         response.sendStatus(200);
