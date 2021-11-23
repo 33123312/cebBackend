@@ -39,7 +39,7 @@ async function orderPeriodoBackup(periodo,user,password){
     executeDump(user,password,route);
 }
 
-s
+
 function executeDump(user, password, route){
     let comand = "mysqldump -u " + user + " -p" + password + " --routines --no-create-db cebdatabase > " + route
 
