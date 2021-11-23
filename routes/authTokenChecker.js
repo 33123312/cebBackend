@@ -1,5 +1,5 @@
 module.exports = req => {
-    let token = req.headers["Authorization"]
-    console.log(token)
+    let token = req.headers.authorization
+    console.log(req.headers)
     return token === "pocheto"
 }
