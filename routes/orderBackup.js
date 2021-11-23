@@ -2,6 +2,7 @@
 const express = require("express")
 const routes = express.Router();
 const shellExecuter = require("./shellExecuter");
+const tokerChecker = require("./authTokenChecker")
 
 let response
 
@@ -43,10 +44,14 @@ async function orderPeriodoBackup(periodo,user,password){
 function executeDump(user, password, route){
     let comand = "mysqldump -u " + user + " -p" + password + " --routines --no-create-db cebdatabase > " + route
 
-    shellExecuter(comand,() =>{
-        const file = route;
-        response.status(200).sendFile(file,error => console.log(error));
-    })
+    if(tokerChecker(response))
+        shellExecuter(comand,() =>{
+            const file = route;
+            
+            response.status(200).sendFile(file);
+        })
+    else
+        response.status(400)
 }
 
 
