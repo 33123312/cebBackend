@@ -45,7 +45,7 @@ function executeDump(user, password, route){
 
     shellExecuter(comand,() =>{
         const file = route;
-        response.sendFile(file,error => console.log(error));
+        response.status(200).sendFile(file,error => console.log(error));
     })
 }
 
