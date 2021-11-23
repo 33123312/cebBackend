@@ -4,9 +4,9 @@ function executeShell(comand,whenFinish){
     const { exec } = require('child_process');
 
     exec(comand, (err, stdout, stderr) => {
-        if (err) {
+        if (err) 
             return;
-        }
+        
         whenFinish();
 
         });
