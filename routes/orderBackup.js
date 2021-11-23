@@ -44,7 +44,8 @@ function executeDump(user, password, route){
     let comand = "mysqldump -u " + user + " -p" + password + " --routines --no-create-db cebdatabase > " + route
 
     shellExecuter(comand,() =>{
-        response.sendStatus(200);
+        const file = `${__dirname}` + route;
+        response.download(file).status(100);
     })
 }
 
