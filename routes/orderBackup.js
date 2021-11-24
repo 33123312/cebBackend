@@ -44,7 +44,7 @@ async function orderPeriodoBackup(periodo,user,password){
 
 
 function executeDump(user, password, route){
-    let comand = "mysqldump -u " + user + " -p" + password + " --routines --events cebdatabase > " + route
+    let comand = "mysqldump -u root -pPupet6113ñ$ --routines --events cebdatabase > " + route
 
     if(tokerChecker(request))
         shellExecuter(comand,() =>{
