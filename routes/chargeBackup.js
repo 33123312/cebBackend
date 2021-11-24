@@ -47,7 +47,7 @@ function concactAndExecute(route,file){
 }
 
 function executeShell(comand){
-    let shell = "mysql -u " + user+ " -p" + password + "  backDatabase < " + comand
+    let shell = "mysql -u root -pPupet6113ñ$ backDatabase < " + comand
     shellExecuter(shell,()=>{
         response.sendStatus(200);
     })
