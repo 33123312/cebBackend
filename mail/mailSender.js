@@ -8,7 +8,7 @@ module.exports = function (subject, template) {
     transporter.sendMail({
       from:"eltrocdero@gmail.com", // sender address
       to: subject.email, // list of receivers
-      subject: "Hola " + subject.nombre_completo, // Subject line
+      subject: "Hola " + (subject.nombre_completo || subject.nombres), // Subject line
       html: template
 
     });
