@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config()
 
 const consultSystemV       = require("./routes/consultSystemV")
 const downloadSystemUpdate = require("./routes/downloadSystemUpdate")
@@ -9,14 +10,15 @@ const getBackup            = require("./routes/getBackup")
 const createBackDir        = require("./routes/createNewPeriodoBackupsDir")
 const deleteBackDir        = require("./routes/deletePeriodoBackDir") 
 const useAsMainDatabase    = require("./routes/useAsMainDatabase") 
+const passGen              = require("./routes/passwordGenerator")
 
 const app = new express();
 
-app.listen(3000,() => console.log("server en el 3000"));
-
+app.listen(process.env.APP_PORT,() => console.log("server en el 3000"));
 
 app.use(express.json())
 
+app.use(passGen)
 app.use(consultSystemV)
 app.use(downloadSystemUpdate)
 app.use(orderBackup)
