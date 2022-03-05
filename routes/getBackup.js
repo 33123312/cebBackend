@@ -8,7 +8,10 @@ routes.get("/getBack/:periodo",(req,res)=>{
     const fs = require('fs');
 
     fs.readdir("/mysqlDumps/" + periodo + "/backups/", (err, files) => {
-        if(files != undefined){
+      console.log(periodo,err,files)
+        if(err)
+          return res.sendStatus(400)
+        
           let filesArray = []
 
           files.forEach(file => {
@@ -16,10 +19,6 @@ routes.get("/getBack/:periodo",(req,res)=>{
           });
 
           res.status(200).json({"list":filesArray});
-
-        } else 
-          res.sendStatus(404)
-
 
     });
 

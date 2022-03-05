@@ -2,28 +2,23 @@
 const express = require("express")
 const routes = express.Router();
 const shellExecuter = require("./shellExecuter");
-const tokerChecker = require("./authTokenChecker")
 
-let request
-let response
 
 routes.post("/orderBackup",(req,res)=>{
     let backInfo = req.body;
 
-    request = req
-    response = res;
-
-    if(backInfo.type == "backup")
-        orderBackup(backInfo.periodo,backInfo.user,backInfo.password)
-    else if (backInfo.type == "periodoBackup")
-        orderPeriodoBackup(backInfo.periodo,backInfo.user,backInfo.password)
-        
-    else
-        res.sendStatus(400)
+    order(backInfo).then((file)=>response.status(200).sendFile(file))
 
 })
 
-async function orderBackup (periodo,user,password){
+ function order(backInfo){
+    if(backInfo.type == "backup")
+        return orderBackup(backInfo.periodo)
+    else if (backInfo.type == "periodoBackup")
+        return orderPeriodoBackup(backInfo.periodo)
+}
+
+ function orderBackup (periodo){
     let date_ob = new Date();
 
     let name = periodo + "-" + date_ob.getDate() + "-" + date_ob.getMonth() + "-" + date_ob.getFullYear() + "-" + date_ob.getHours() + "-" + date_ob.getSeconds();
@@ -32,28 +27,26 @@ async function orderBackup (periodo,user,password){
 
     let fullRoute = route + name + ".sql"
 
-    executeDump(user,password,fullRoute);
+    return executeDump(fullRoute);
 
 }
 
-async function orderPeriodoBackup(periodo,user,password){
+function orderPeriodoBackup(periodo){
     let route = "/mysqlDumps/" + periodo + "/" + periodo + ".sql";
 
-    executeDump(user,password,route);
+    return executeDump(route);
 }
 
 
-function executeDump(user, password, route){
-    let comand = "mysqldump -u " + user + " -p" + password + " --routines --events cebdatabase > " + route
-
-    if(tokerChecker(request))
+function executeDump(route){
+    let comand = "mysqldump -u " + process.env.DB_USER + " -p" + process.env.DB_PASS + " --routines --events cebdatabase > " + route
+    return new Promise((succ) =>{
         shellExecuter(comand,() =>{
             const file = route;
+            succ(file)
             
-            response.status(200).sendFile(file);
         })
-    else
-        response.status(400)
+    })
 }
 
 

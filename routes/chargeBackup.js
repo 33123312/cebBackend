@@ -4,15 +4,11 @@ const shellExecuter = require("./shellExecuter")
 
 const routes = express.Router();
 
-let user;
-let password;
 let response;
 
 routes.post("/chargeBackup",(req,res)=>{
     let backInfo = req.body;
 
-    user = backInfo.user
-    password = backInfo.password
     response = res;
 
     if(backInfo.type == "backup"){
