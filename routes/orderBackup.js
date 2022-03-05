@@ -21,7 +21,7 @@ routes.post("/orderBackup",(req,res)=>{
  function orderBackup (periodo){
     let date_ob = new Date();
 
-    let name = periodo + ":0" + date_ob.getDate() + "-0" + date_ob.getMonth() + ":" + date_ob.getHours()+ "H" + date_ob.getMinutes() + "M" + date_ob.getSeconds() + "S";
+    let name = "0" + date_ob.getDate() + "-0" + date_ob.getMonth()+1 + ":" + date_ob.getHours()+ "h" + date_ob.getMinutes() + "m" + date_ob.getSeconds() + "s";
 
     let route = "/mysqlDumps/" + periodo + "/backups/";
 
