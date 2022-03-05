@@ -7,7 +7,7 @@ const shellExecuter = require("./shellExecuter");
 routes.post("/orderBackup",(req,res)=>{
     let backInfo = req.body;
 
-    order(backInfo).then((file)=>response.status(200).sendFile(file))
+    order(backInfo).then((file)=>res.status(200).sendFile(file))
 
 })
 
