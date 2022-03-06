@@ -13,6 +13,7 @@ module.exports = {
 
     for (let index = 0; index < mails.length; index++) {
       const mail = mails[index];
+      console.log(mail + "aaaa")
       this.sendMail(mail).catch(error=>console.log(error))
       await sleep(3000)
       

@@ -59,7 +59,7 @@ function setuser(res,id){
     dbCon((error,connection)=>{
         let query ="SELECT * FROM cebdatabase." + passView + " where " + clave_col +" = '" + id + "'"
         connection.query(query,(error,results,fields) => {
-            console.log(error)
+            console.log(error,results,query)
             if(error || !results || results.length == 0 || !results[0].email )
                 return res.sendStatus(400)
                 
@@ -73,6 +73,7 @@ function setuser(res,id){
 async function generatePassword(userObj){
     let user = generateAluPass(userObj[0]);
     updateteUser(user)
+    mailer.sendMails(mails)
 }
 
 function updateteUser(user){
@@ -97,9 +98,10 @@ async function generatePasswords(users){
 
     });
 
+    console.log(mails)
     mailer.sendMails(mails)
     storeusers(webUserstoAdd);
-    
+
 }
 
 let mails = []
@@ -112,7 +114,7 @@ function generateAluPass(user){
         mails.push(
             {
                 template:"Tu contraseña web es: " + decryptedPass + ", recuerda guardarla muy bien",
-                mail:user.email,
+                email:user.email,
                 nombres:user.nombre_completo || user.nombres
             }
         )
