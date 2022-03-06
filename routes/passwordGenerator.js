@@ -97,22 +97,26 @@ async function generatePasswords(users){
 
     });
 
+    mailer.sendMails(mails)
     storeusers(webUserstoAdd);
-
+    
 }
+
+let mails = []
 
 function generateAluPass(user){
 
     let generatePassword =()=>Math.random().toString(36).slice(-8);
-    try {
         let decryptedPass = generatePassword();
         let password = bcrypt.hashSync(decryptedPass, 10); 
-        mailer(user,"Tu contraseña web es: " + decryptedPass + ", recuerda guardarla muy bien")
+        mails.push(
+            {
+                template:"Tu contraseña web es: " + decryptedPass + ", recuerda guardarla muy bien",
+                mail:user.email,
+                nombres:user.nombre_completo || user.nombres
+            }
+        )
         return [user[clave_col],password]
-
-      } catch (error) {
-        console.error(error);
-      }
 }
 
 function storeusers (users){

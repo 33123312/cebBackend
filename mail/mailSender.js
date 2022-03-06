@@ -1,16 +1,29 @@
 const nodemailer = require("nodemailer");
 const mailCred = require("./mailCredentials")
 
-module.exports = function (subject, template) {
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
-    let transporter = nodemailer.createTransport(mailCred);
-  
-    transporter.sendMail({
-      from:"eltrocdero@gmail.com", // sender address
-      to: subject.email, // list of receivers
-      subject: "Hola " + (subject.nombre_completo || subject.nombres), // Subject line
-      html: template
+module.exports = {
+  transporter:nodemailer.createTransport(mailCred),
+  async sendMails(mails){
 
-    });
-  
+    for (let index = 0; index < mails.length; index++) {
+      const mail = mails[index];
+      this.sendMail(mail).catch(error=>console.log(error))
+      await sleep(3000)
+      
+    }
+  },
+  sendMail(mail) {
+    return this.transporter.sendMail({
+        from:process.env.MAIL_ACC, // sender address
+        to: mail.email, // list of receivers
+        mail: "Hola " + (mail.nombres), // mail line
+        html: mail.template
+      })
   }
+}

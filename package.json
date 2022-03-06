@@ -17,6 +17,8 @@
     "express": "^4.17.1",
     "mailer": "^0.6.6",
     "mysql2": "^2.3.3",
+    "node-cron": "^3.0.0",
+    "nodemailer-smtp-pool": "^2.8.3",
     "nodemon": "^2.0.13",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
