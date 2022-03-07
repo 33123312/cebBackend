@@ -9,8 +9,6 @@ let response
 routes.post("/useAsMainDatabase",(req,res) =>{
     let info = req.body;
 
-    user = info.user;
-    password = info.password
     response = res;
 
     if(info.type == "backup")
@@ -36,7 +34,7 @@ function chargePeriodo(periodo){
 function executeShell(periodo, dir){
     let finDir = "/mysqlDumps/" + periodo + "/" + dir;
 
-    let shell = "mysql -u " + user+ " -p" + password + "  cebdatabase < " + finDir
+    let shell = "mysql -u " + process.env.DB_USER + " -p" + process.env.DB_PASS + "  cebdatabase < " + finDir
 
     shellExecuter(shell).
     then(()=>response.sendStatus(200)).
