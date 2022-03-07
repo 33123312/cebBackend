@@ -8,9 +8,9 @@ routes.post("/deletePeriodoBackDir/:periodo",(req,res) =>{
 
 async function deleteDir(dir,res){
     let cmd = "rm -r /mysqlDumps/" + dir;
-    shellExecuter(cmd,()=>{
-        res.sendStatus(200);
-    });
+    shellExecuter(cmd).
+    then(()=>res.sendStatus(200)).
+    catch( err = res.send(err => res.send(err).sendStatus(400)));
 
 }
 

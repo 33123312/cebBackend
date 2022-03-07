@@ -40,12 +40,13 @@ function orderPeriodoBackup(periodo){
 
 function executeDump(route){
     let comand = "mysqldump -u " + process.env.DB_USER + " -p" + process.env.DB_PASS + " --routines --events cebdatabase > " + route
-    return new Promise((succ) =>{
-        shellExecuter(comand,() =>{
-            const file = route;
-            succ(file)
-            
-        })
+    return new Promise((succ,reject) =>{
+        shellExecuter(comand).
+            then(() =>{
+                const file = route;
+                succ(file)     
+            }).
+            catch(err=>reject(err))
     })
 }
 

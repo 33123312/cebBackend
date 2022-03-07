@@ -1,15 +1,17 @@
 
-function executeShell(comand,whenFinish){
+function executeShell(comand){
     console.log(comand)
-    const { exec } = require('child_process');
 
-    exec(comand, (err, stdout, stderr) => {
-        if (err) 
-            return;
-        
-        whenFinish();
-
+    return new Promise((resume,reject)=>{
+        const { exec } = require('child_process');
+        exec(comand, (err, stdout, stderr) => {
+            if(err)
+                reject(err)
+            else
+                resume();
         });
+    })
+
 
 }
 

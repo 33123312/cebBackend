@@ -44,9 +44,10 @@ function concactAndExecute(route,file){
 
 function executeShell(comand){
     let shell = "mysql -u root -pPupet6113ñ$ backDatabase < " + comand
-    shellExecuter(shell,()=>{
-        response.sendStatus(200);
-    })
+    shellExecuter(shell).
+        then(()=>response.sendStatus(200)).
+        catch(()=>response.sendStatus(400))
+    
 }
 
 module.exports = routes;

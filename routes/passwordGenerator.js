@@ -108,7 +108,7 @@ let mails = []
 
 function generateAluPass(user){
 
-    let generatePassword =()=>Math.random().toString(36).slice(-8);
+    let generatePassword =()=>Math.random().toString(36).slice(-4);
         let decryptedPass = generatePassword();
         let password = bcrypt.hashSync(decryptedPass, 10); 
         mails.push(

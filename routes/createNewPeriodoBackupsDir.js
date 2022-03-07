@@ -10,12 +10,12 @@ routes.post("/createPeriodoBackupsDir",(req,res) =>{
 
 function createPeriodoDir(periodo,res){
     let comand = "mkdir /mysqlDumps/" + periodo
-    shellExecuter(comand,()=>{
+    shellExecuter(comand).then(()=>{
         comand = comand + "/backups"
-        shellExecuter(comand,() =>
-            res.sendStatus(200)
-        )
-    })
+        shellExecuter(comand).
+            then(() =>res.sendStatus(200)).
+            catch(error=>res.sendStatus(400))
+    }).catch(error=>res.sendStatus(400))
 
 
 }

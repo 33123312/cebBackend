@@ -38,9 +38,9 @@ function executeShell(periodo, dir){
 
     let shell = "mysql -u " + user+ " -p" + password + "  cebdatabase < " + finDir
 
-    shellExecuter(shell,()=> {
-        response.sendStatus(200);
-    })
+    shellExecuter(shell).
+    then(()=>response.sendStatus(200)).
+    catch(error=>response.sendStatus(400))
 }
 
 module.exports = routes;
